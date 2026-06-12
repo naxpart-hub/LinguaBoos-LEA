@@ -2,19 +2,26 @@
 <img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>
 
-# Run and deploy your AI Studio app
+# LinguaBoost LEA 🐲 — Apprends la grammaire espagnole avec Chispa
 
-This contains everything you need to run your app locally.
+Un jeu d'apprentissage de la grammaire espagnole façon **Duolingo**, avec :
 
-View your app in AI Studio: https://ai.studio/apps/drive/1CsJjKe7x_TvuFz4GHRIL7lxq3OCMraZe
+- 🗺️ **Un parcours d'apprentissage** : 3 unités (Orthographe & Accentuation, Présent de l'Indicatif, Subjonctif Présent) composées de nœuds à débloquer — théorie 📖, leçons ⭐ et examen d'unité 🏆.
+- 🐲 **Chispa, le bébé dragon mascotte** : grands yeux brillants façon Chat Potté, animé en SVG/CSS avec plusieurs humeurs (repos, joie, tristesse, réflexion, célébration avec flamme 🔥).
+- ❤️ **Gamification** : XP, cœurs (vies), série de jours (streak), bonus « sans faute », confettis de victoire. Relire la théorie recharge les cœurs.
+- 📚 **Théorie complète et colorée** : code couleur systématique (syllabe tonique en rose, terminaisons en bleu, irrégularités en violet, bons exemples en vert, erreurs en rouge) et encadrés « Astuce de Chispa ».
+- ✍️ **5 types d'exercices** : QCM, phrases à trous, réécriture avec accents (clavier espagnol intégré á é í ó ú ü ñ), classification de mots, traduction.
 
-## Run Locally
+La progression est sauvegardée localement dans le navigateur (localStorage).
 
-**Prerequisites:**  Node.js
+Fait par Ignacio Collado Rojas.
 
+## Lancer en local
 
-1. Install dependencies:
+**Prérequis :** Node.js
+
+1. Installer les dépendances :
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
+2. (Optionnel, pour les futures fonctionnalités IA) Définir `GEMINI_API_KEY` dans [.env.local](.env.local)
+3. Lancer l'application :
    `npm run dev`

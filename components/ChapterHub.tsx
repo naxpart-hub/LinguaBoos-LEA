@@ -2,6 +2,7 @@ import React from 'react';
 import type { Chapter, GameProgress } from '../types';
 import { Mascot } from './Mascot';
 import { TransparentImage } from './TransparentImage';
+import { asset } from '../services/assets';
 
 interface ChapterHubProps {
   chapters: Chapter[];
@@ -90,7 +91,7 @@ export const ChapterHub: React.FC<ChapterHubProps> = ({
     return (
       <div className="relative w-full h-32 overflow-hidden border-b-2 border-slate-300/60">
         <img 
-          src={imgSrc} 
+          src={asset(imgSrc)} 
           alt={imgAlt} 
           className="w-full h-full object-cover rounded-t-xl select-none pointer-events-none group-hover:scale-105 transition-transform duration-300"
         />

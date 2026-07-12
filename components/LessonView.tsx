@@ -3,6 +3,7 @@ import type { LessonNode, LessonQuestion, Unit, UnitColor } from '../types';
 import { checkQuestion, correctAnswerText, MAX_HEARTS } from '../services/gameLogic';
 import { Mascot, MascotMood } from './Mascot';
 import { TransparentImage } from './TransparentImage';
+import { asset } from '../services/assets';
 
 interface LessonViewProps {
   unit: Unit;
@@ -1075,7 +1076,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
 
             <div className="relative z-10 flex flex-col items-center">
               <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden border-4 border-amber-500 shadow-2xl mb-4 animate-pop-in relative">
-                <img src={bossDetails.images.defeated} alt="Boss vaincu" className="w-full h-full object-cover" />
+                <img src={asset(bossDetails.images.defeated)} alt="Boss vaincu" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <div className="absolute bottom-2 left-0 right-0 text-center">
                   <span className="text-white text-xs font-black uppercase tracking-wider bg-black/40 px-3 py-0.5 rounded-full">Terrassé</span>
@@ -1172,7 +1173,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
             <div className="relative">
               <div className="w-52 h-52 sm:w-64 sm:h-64 rounded-2xl overflow-hidden border-3 border-amber-600/60 shadow-2xl relative">
                 <img 
-                  src={cutsceneStep < 3 ? bossDetails.images.critical : bossDetails.images.defeated} 
+                  src={asset(cutsceneStep < 3 ? bossDetails.images.critical : bossDetails.images.defeated)} 
                   alt={bossDetails.name} 
                   className="w-full h-full object-cover transition-all duration-1000"
                 />
@@ -1289,7 +1290,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
 
             <div className="relative z-10 flex flex-col items-center">
               <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden border-4 border-rose-900 shadow-2xl mb-4 animate-pop-in relative">
-                <img src="/gargoyle_defeated.png" alt="Gargouille pétrifiée" className="w-full h-full object-cover" />
+                <img src={asset('/gargoyle_defeated.png')} alt="Gargouille pétrifiée" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-2 left-0 right-0 text-center">
                   <span className="text-white text-xs font-black uppercase tracking-wider bg-rose-950/70 px-3 py-0.5 rounded-full border border-rose-800">Pétrifié</span>
@@ -2057,7 +2058,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
               {/* Card Illustration - dynamic based on HP */}
               <div className="flex-1 my-1 overflow-hidden rounded-lg bg-amber-900/10 border border-amber-900/10 flex items-center justify-center">
                 <img 
-                  src={bossCurrentImage} 
+                  src={asset(bossCurrentImage)} 
                   alt={bossDetails.name} 
                   className="w-full h-full object-cover transition-all duration-500"
                 />
@@ -2140,7 +2141,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
               {/* Card Illustration */}
               <div className="flex-1 my-1 overflow-hidden rounded-lg bg-amber-900/10 border border-amber-900/10 flex items-center justify-center">
                 <img 
-                  src="/card_gargui.png" 
+                  src={asset('/card_gargui.png')} 
                   alt="Gargui" 
                   className="w-full h-full object-cover"
                 />

@@ -337,7 +337,7 @@ export const CardBattle: React.FC<CardBattleProps> = ({ unit, node, onQuit, onCo
         ))}
         <div className="relative z-10 max-w-lg w-full flex flex-col items-center gap-4">
           <div className={`w-48 h-48 rounded-2xl overflow-hidden border-4 ${isWin ? 'border-amber-400' : 'border-red-900'} shadow-2xl ${isWin ? '' : 'grayscale brightness-50'}`}>
-            <img src={isWin ? boss.images.defeated : '/gargoyle_defeated.png'} alt="" className="w-full h-full object-cover" />
+            <img src={asset(isWin ? boss.images.defeated : '/gargoyle_defeated.png')} alt="" className="w-full h-full object-cover" />
           </div>
           <h2 className={`font-gothic font-black text-2xl tracking-widest ${isWin ? 'text-gold-mirror' : 'text-red-300'}`}>
             {isWin ? 'VICTOIRE' : 'DÉFAITE'}
@@ -396,7 +396,7 @@ export const CardBattle: React.FC<CardBattleProps> = ({ unit, node, onQuit, onCo
         <div className="max-w-md w-full flex flex-col items-center gap-5 z-10">
           <span className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-200/60 font-gothic">⚔️ Combat de Boss ⚔️</span>
           <div className="w-44 h-44 rounded-2xl overflow-hidden border-4 border-amber-900 shadow-2xl animate-pop-in">
-            <img src={boss.images.full} alt={boss.name} className="w-full h-full object-cover" />
+            <img src={asset(boss.images.full)} alt={boss.name} className="w-full h-full object-cover" />
           </div>
           <h2 className="font-gothic font-black text-2xl text-gold-mirror tracking-wider">{boss.name}</h2>
           <p className="text-amber-100/70 text-sm italic font-gothic">{boss.desc}</p>
@@ -448,7 +448,7 @@ export const CardBattle: React.FC<CardBattleProps> = ({ unit, node, onQuit, onCo
             ))}
             <div className="text-[9px] sm:text-[11px] font-black uppercase text-amber-900 text-center tracking-wider border-b-2 border-amber-900/20 pb-0.5 truncate" title={boss.name}>{boss.name}</div>
             <div className="flex-1 my-1 overflow-hidden rounded-lg bg-amber-900/10 border border-amber-900/10 flex items-center justify-center relative">
-              <img src={bossImage} alt={boss.name} className="w-full h-full object-cover transition-all duration-500" />
+              <img src={asset(bossImage)} alt={boss.name} className="w-full h-full object-cover transition-all duration-500" />
               {/* badges statut */}
               <div className="absolute top-1 right-1 flex flex-col gap-1">
                 {bossBlock > 0 && <span className="bg-sky-500 text-white text-[9px] font-black rounded-md px-1.5 py-0.5 shadow border border-white/60">🛡️{bossBlock}</span>}
@@ -489,7 +489,7 @@ export const CardBattle: React.FC<CardBattleProps> = ({ unit, node, onQuit, onCo
               <span key={f.id} className={`absolute top-1/3 left-1/2 -translate-x-1/2 text-2xl font-black drop-shadow-lg z-50 animate-dmg-float ${f.tone === 'heal' ? 'text-emerald-500' : f.tone === 'shield' ? 'text-sky-500' : 'text-rose-600'}`}>{f.value}</span>
             ))}
             <div className="text-[9px] sm:text-[11px] font-black uppercase text-amber-900 text-center tracking-wider border-b border-amber-900/20 pb-0.5">Gargui</div>
-            <div className="flex-1 my-1 overflow-hidden rounded-lg bg-amber-900/10 border border-amber-900/10"><img src="/card_gargui.png" alt="Gargui" className="w-full h-full object-cover" /></div>
+            <div className="flex-1 my-1 overflow-hidden rounded-lg bg-amber-900/10 border border-amber-900/10"><img src={asset('/card_gargui.png')} alt="Gargui" className="w-full h-full object-cover" /></div>
             <div className="space-y-1">
               <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden border border-slate-300"><div className="bg-red-500 h-full rounded-full transition-all" style={{ width: `${(playerHp / PLAYER_MAX_HP) * 100}%` }} /></div>
               <div className="text-center text-[8px] sm:text-[10px] font-extrabold text-amber-900">PV : {playerHp}/{PLAYER_MAX_HP}</div>

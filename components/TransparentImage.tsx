@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { asset } from '../services/assets';
 
 interface TransparentImageProps {
   src: string;
@@ -12,7 +13,8 @@ interface TransparentImageProps {
  * Renders an image using a client-side flood-fill algorithm
  * to make the surrounding white background transparent.
  */
-export const TransparentImage: React.FC<TransparentImageProps> = ({ src, alt, className = '', style }) => {
+export const TransparentImage: React.FC<TransparentImageProps> = ({ src: rawSrc, alt, className = '', style }) => {
+  const src = asset(rawSrc);
   const [processedSrc, setProcessedSrc] = useState<string>(src);
 
   useEffect(() => {

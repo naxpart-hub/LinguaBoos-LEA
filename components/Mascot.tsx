@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { asset } from '../services/assets';
 
 export type MascotMood = 'idle' | 'happy' | 'sad' | 'thinking' | 'celebrate';
 
@@ -14,13 +15,13 @@ interface MascotProps {
  * to keep eye reflections intact and maintain transparent backgrounds.
  */
 export const Mascot: React.FC<MascotProps> = ({ mood = 'idle', className = '' }) => {
-  const rawImageSrc = {
+  const rawImageSrc = asset({
     idle: '/mascot_gargoyle_idle.png',
     happy: '/mascot_gargoyle_happy.png',
     sad: '/mascot_gargoyle_sad.png',
     thinking: '/mascot_gargoyle_thinking.png',
     celebrate: '/mascot_gargoyle_happy.png',
-  }[mood] || '/mascot_gargoyle_idle.png';
+  }[mood] || '/mascot_gargoyle_idle.png');
 
   const [processedSrc, setProcessedSrc] = useState<string>(rawImageSrc);
 

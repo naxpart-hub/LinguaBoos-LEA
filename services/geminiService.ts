@@ -6,7 +6,7 @@ import { ExerciseType } from '../types';
 // The GoogleGenAI instance is initialized here directly.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
-const model = 'gemini-2.5-flash';
+const model = 'gemini-3.1-flash-lite';
 
 export const generateNewExercise = async (topic: string, type: ExerciseType): Promise<Exercise | null> => {
     console.log(`Generating new exercise for topic: ${topic}, type: ${type}`);

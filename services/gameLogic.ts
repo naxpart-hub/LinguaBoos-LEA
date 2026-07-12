@@ -8,6 +8,9 @@ import {
   RewriteAccentContent,
   ClassifyWordsContent,
   TranslationContent,
+  WordOrderContent,
+  MatchPairsContent,
+  ListeningContent,
   LessonQuestion,
   LessonNode,
   Unit,
@@ -67,6 +70,27 @@ const exerciseToQuestions = (exercise: Exercise): LessonQuestion[] => {
         french: item.frenchSentence,
         solutions: item.possibleSolutions,
         note: item.note,
+        hint,
+      }));
+    case ExerciseType.WORD_ORDER:
+      return (exercise.content as WordOrderContent[]).map(item => ({
+        kind: 'order',
+        words: item.words,
+        solution: item.solution,
+        translation: item.translation,
+        hint,
+      }));
+    case ExerciseType.MATCH_PAIRS:
+      return (exercise.content as MatchPairsContent[]).map(item => ({
+        kind: 'match',
+        pairs: item.pairs,
+        hint,
+      }));
+    case ExerciseType.LISTENING:
+      return (exercise.content as ListeningContent[]).map(item => ({
+        kind: 'listen',
+        text: item.audioText,
+        solutions: item.possibleSolutions,
         hint,
       }));
     default:
@@ -148,10 +172,15 @@ export const isNodeUnlocked = (
   progress: GameProgress,
   nodeId: string
 ): boolean => {
-  const all = flattenNodes(units);
-  const index = all.findIndex(n => n.id === nodeId);
-  if (index <= 0) return true;
-  return !!progress.completed[all[index - 1].id];
+  for (const unit of units) {
+    const idx = unit.nodes.findIndex(n => n.id === nodeId);
+    if (idx === -1) continue;
+    // Le premier nœud de chaque unité (la théorie) est toujours accessible.
+    if (idx === 0) return true;
+    // Sinon : débloqué si le nœud précédent de la même unité est terminé.
+    return !!progress.completed[unit.nodes[idx - 1].id];
+  }
+  return false;
 };
 
 export const findCurrentNodeId = (units: Unit[], progress: GameProgress): string | null => {
@@ -162,7 +191,7 @@ export const findCurrentNodeId = (units: Unit[], progress: GameProgress): string
 
 // ---- Persistance de la progression ----
 
-const STORAGE_KEY = 'linguaboost-game-v1';
+const STORAGE_KEY = 'grimorio-gargola-v1';
 
 const todayString = () => new Date().toISOString().slice(0, 10);
 
@@ -178,6 +207,7 @@ export const defaultProgress = (): GameProgress => ({
   streak: 0,
   lastActiveDay: '',
   completed: {},
+  mistakes: [],
 });
 
 export const loadProgress = (): GameProgress => {
@@ -223,7 +253,7 @@ export const completeNode = (
     ...progress,
     xp: progress.xp + xpEarned,
     completed: { ...progress.completed, [node.id]: true },
-    // Lire la théorie redonne toutes ses forces à Chispa.
+    // Lire la théorie redonne toutes ses forces à Gargui.
     hearts: node.type === 'theory' ? MAX_HEARTS : progress.hearts,
   };
   next = updateStreak(next);
@@ -266,6 +296,15 @@ export const checkQuestion = (question: LessonQuestion, answers: string[]): bool
       return question.solutions.some(
         sol => normalizeSentence(sol) === normalizeSentence(answers[0] ?? '')
       );
+    case 'order':
+      return normalizeSentence(answers[0] ?? '') === normalizeSentence(question.solution);
+    case 'match':
+      // L'appariement se valide dans l'interface : 'ok' quand toutes les paires sont trouvées.
+      return answers[0] === 'ok';
+    case 'listen':
+      return question.solutions.some(
+        sol => normalizeSentence(sol) === normalizeSentence(answers[0] ?? '')
+      );
   }
 };
 
@@ -281,5 +320,53 @@ export const correctAnswerText = (question: LessonQuestion): string => {
       return question.solutions.join(', ');
     case 'translate':
       return question.solutions[0];
+    case 'order':
+      return question.solution;
+    case 'match':
+      return question.pairs.map(p => `${p.left} → ${p.right}`).join(' · ');
+    case 'listen':
+      return question.solutions[0];
   }
+};
+
+// ---- Remédiation : cartes d'erreurs ----
+
+const MAX_MISTAKES = 50;
+export const REVIEW_QUESTIONS_PER_SESSION = 8;
+
+const mistakeKey = (q: LessonQuestion): string => JSON.stringify(q);
+
+// Enregistre une question ratée dans le deck de révision (dédupliquée, plafonnée).
+export const recordMistake = (progress: GameProgress, question: LessonQuestion): GameProgress => {
+  const key = mistakeKey(question);
+  const existing = progress.mistakes ?? [];
+  if (existing.some(m => mistakeKey(m) === key)) return progress;
+  const mistakes = [...existing, question].slice(-MAX_MISTAKES);
+  const next = { ...progress, mistakes };
+  saveProgress(next);
+  return next;
+};
+
+// Retire du deck les questions revues avec succès (fin d'une session de révision).
+export const clearReviewedMistakes = (
+  progress: GameProgress,
+  reviewed: LessonQuestion[]
+): GameProgress => {
+  const reviewedKeys = new Set(reviewed.map(mistakeKey));
+  const mistakes = (progress.mistakes ?? []).filter(m => !reviewedKeys.has(mistakeKey(m)));
+  const next = { ...progress, mistakes };
+  saveProgress(next);
+  return next;
+};
+
+// Construit la salle de révision à partir des erreurs stockées (les plus anciennes d'abord).
+export const buildReviewNode = (progress: GameProgress): LessonNode | null => {
+  const mistakes = progress.mistakes ?? [];
+  if (mistakes.length === 0) return null;
+  return {
+    id: 'review-session',
+    type: 'lesson',
+    title: 'Salle de Révision',
+    questions: mistakes.slice(0, REVIEW_QUESTIONS_PER_SESSION),
+  };
 };

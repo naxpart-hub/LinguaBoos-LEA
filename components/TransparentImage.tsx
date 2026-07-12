@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
-export type MascotMood = 'idle' | 'happy' | 'sad' | 'thinking' | 'celebrate';
-
-interface MascotProps {
-  mood?: MascotMood;
+interface TransparentImageProps {
+  src: string;
+  alt: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 /**
- * Mascot component for the Spanish grammar learning game.
- * Uses 3D-rendered stone gargoyle PNG images.
- * Dynamically removes the white background using a client-side flood-fill algorithm
- * to keep eye reflections intact and maintain transparent backgrounds.
+ * TransparentImage component.
+ * Renders an image using a client-side flood-fill algorithm
+ * to make the surrounding white background transparent.
  */
-export const Mascot: React.FC<MascotProps> = ({ mood = 'idle', className = '' }) => {
-  const rawImageSrc = {
-    idle: '/mascot_gargoyle_idle.png',
-    happy: '/mascot_gargoyle_happy.png',
-    sad: '/mascot_gargoyle_sad.png',
-    thinking: '/mascot_gargoyle_thinking.png',
-    celebrate: '/mascot_gargoyle_happy.png',
-  }[mood] || '/mascot_gargoyle_idle.png';
-
-  const [processedSrc, setProcessedSrc] = useState<string>(rawImageSrc);
+export const TransparentImage: React.FC<TransparentImageProps> = ({ src, alt, className = '', style }) => {
+  const [processedSrc, setProcessedSrc] = useState<string>(src);
 
   useEffect(() => {
     let active = true;
@@ -99,14 +90,14 @@ export const Mascot: React.FC<MascotProps> = ({ mood = 'idle', className = '' })
           setProcessedSrc(canvas.toDataURL());
         }
       };
-      
+
       img.onerror = () => {
         if (active) {
-          setProcessedSrc(rawImageSrc);
+          setProcessedSrc(src);
         }
       };
-      
-      img.src = rawImageSrc;
+
+      img.src = src;
     };
 
     processImage();
@@ -114,31 +105,14 @@ export const Mascot: React.FC<MascotProps> = ({ mood = 'idle', className = '' })
     return () => {
       active = false;
     };
-  }, [rawImageSrc]);
-
-  const animationClass = {
-    idle: 'mascot-idle',
-    happy: 'mascot-happy',
-    sad: 'mascot-sad',
-    thinking: 'mascot-thinking',
-    celebrate: 'mascot-celebrate',
-  }[mood] || 'mascot-idle';
+  }, [src]);
 
   return (
-    <div className={`relative ${className} select-none pointer-events-none flex items-center justify-center`} aria-hidden="true">
-      <img 
-        src={processedSrc} 
-        alt={`Gargouille ${mood}`} 
-        className={`w-full h-full object-contain ${animationClass}`}
-        style={{ transformOrigin: 'bottom center' }}
-      />
-      
-      {/* Floating question mark bubble when thinking */}
-      {mood === 'thinking' && (
-        <div className="absolute top-0 right-0 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 w-8 h-8 rounded-full flex items-center justify-center shadow-md animate-bubble-in">
-          <span className="font-black text-sky-500 text-base">?</span>
-        </div>
-      )}
-    </div>
+    <img 
+      src={processedSrc} 
+      alt={alt} 
+      className={className} 
+      style={style} 
+    />
   );
 };

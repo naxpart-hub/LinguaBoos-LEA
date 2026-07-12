@@ -1,7 +1,11 @@
 import { Chapter, ExerciseType } from '../types';
 import { THEORY_BY_CHAPTER } from './theoryContent';
+import { grammarDataVerbes } from './grammarDataVerbes';
+import { grammarDataLangue } from './grammarDataLangue';
 
-export const grammarData: Chapter[] = [
+// Les 3 chapitres fondateurs ; les chapitres « verbes » et « langue » sont
+// concaténés en bas de fichier pour couvrir tout le programme du fascicule S1.
+const chapitresFondateurs: Chapter[] = [
   {
     id: 'orthographe',
     title: 'Orthographe et Accentuation',
@@ -140,6 +144,23 @@ export const grammarData: Chapter[] = [
         }
       },
       {
+        id: 'exo_dictee_1',
+        type: ExerciseType.LISTENING,
+        instructions: "Dictée magique : écoutez et écrivez le mot avec son accent éventuel.",
+        content: [
+          { audioText: 'música', possibleSolutions: ['música'] },
+          { audioText: 'canción', possibleSolutions: ['canción'] },
+          { audioText: 'examen', possibleSolutions: ['examen'] },
+          { audioText: 'difícil', possibleSolutions: ['difícil'] },
+          { audioText: 'alegría', possibleSolutions: ['alegría'] },
+          { audioText: 'ciudad', possibleSolutions: ['ciudad'] },
+        ],
+        feedback: {
+          correct: "Bravo ! Votre oreille repère la syllabe tonique et vous savez quand écrire l'accent.",
+          incorrect: "Écoutez où frappe la voix : esdrújula → accent toujours (música), aguda finie en -n/-s/voyelle → accent (canción), llana finie en voyelle/-n/-s → pas d'accent (examen).",
+        },
+      },
+      {
         id: 'exo_trad_1',
         type: ExerciseType.TRANSLATION,
         instructions: "Traduisez la phrase suivante en espagnol (Thème).",
@@ -261,6 +282,49 @@ export const grammarData: Chapter[] = [
         }
       },
       {
+        id: 'exo_present_pairs',
+        type: ExerciseType.MATCH_PAIRS,
+        instructions: "Associez chaque infinitif à sa forme « yo » irrégulière.",
+        content: [
+          {
+            pairs: [
+              { left: 'hacer', right: 'hago' },
+              { left: 'poner', right: 'pongo' },
+              { left: 'salir', right: 'salgo' },
+              { left: 'saber', right: 'sé' },
+              { left: 'conocer', right: 'conozco' },
+            ],
+          },
+          {
+            pairs: [
+              { left: 'ir', right: 'voy' },
+              { left: 'ser', right: 'soy' },
+              { left: 'estar', right: 'estoy' },
+              { left: 'dar', right: 'doy' },
+              { left: 'ver', right: 'veo' },
+            ],
+          },
+        ],
+        feedback: {
+          correct: "Excellent ! Les « yo » irréguliers sont tous appariés.",
+          incorrect: "Les « yo-go » (hago, pongo, salgo), les -zco (conozco), les -oy (voy, soy, estoy, doy) et les uniques (sé, veo).",
+        },
+      },
+      {
+        id: 'exo_present_order',
+        type: ExerciseType.WORD_ORDER,
+        instructions: "Remettez les mots dans l'ordre.",
+        content: [
+          { words: ['Todos', 'los', 'días', 'voy', 'al', 'trabajo'], solution: 'Todos los días voy al trabajo', translation: 'Tous les jours, je vais au travail' },
+          { words: ['Mi', 'hermano', 'duerme', 'ocho', 'horas'], solution: 'Mi hermano duerme ocho horas', translation: 'Mon frère dort huit heures' },
+          { words: ['¿A', 'qué', 'hora', 'te', 'levantas?'], solution: '¿A qué hora te levantas?', translation: 'À quelle heure te lèves-tu ?' },
+        ],
+        feedback: {
+          correct: "Parfait ! La syntaxe du présent coule naturellement.",
+          incorrect: "Structure : complément de temps + verbe conjugué. Le pronom réfléchi se place devant le verbe (te levantas).",
+        },
+      },
+      {
         id: 'exo_trad_2',
         type: ExerciseType.TRANSLATION,
         instructions: "Traduisez la phrase suivante en espagnol (Thème).",
@@ -370,6 +434,35 @@ export const grammarData: Chapter[] = [
         }
       },
       {
+        id: 'exo_subj_pairs',
+        type: ExerciseType.MATCH_PAIRS,
+        instructions: "Associez chaque verbe à son subjonctif présent (yo).",
+        content: [
+          {
+            pairs: [
+              { left: 'ser', right: 'sea' },
+              { left: 'ir', right: 'vaya' },
+              { left: 'saber', right: 'sepa' },
+              { left: 'haber', right: 'haya' },
+              { left: 'estar', right: 'esté' },
+            ],
+          },
+          {
+            pairs: [
+              { left: 'tener', right: 'tenga' },
+              { left: 'hacer', right: 'haga' },
+              { left: 'decir', right: 'diga' },
+              { left: 'conocer', right: 'conozca' },
+              { left: 'poder', right: 'pueda' },
+            ],
+          },
+        ],
+        feedback: {
+          correct: "Bravo ! Les subjonctifs irréguliers sont tous appariés (pensez à DISHES !).",
+          incorrect: "Les 6 grands irréguliers : sea, vaya, sepa, haya, esté, dé. Et les irrégularités du « yo » indicatif se propagent : tengo → tenga, digo → diga, conozco → conozca.",
+        },
+      },
+      {
         id: 'exo_trad_3',
         type: ExerciseType.TRANSLATION,
         instructions: "Traduisez la phrase suivante en espagnol (Thème).",
@@ -416,4 +509,11 @@ export const grammarData: Chapter[] = [
       }
     ]
   }
+];
+
+// Parcours complet : 16 chapitres = 100 % du programme du fascicule S1.
+export const grammarData: Chapter[] = [
+  ...chapitresFondateurs,
+  ...grammarDataVerbes,
+  ...grammarDataLangue,
 ];

@@ -6,9 +6,9 @@
 //   vert  = exemples corrects
 //   rouge = erreurs à éviter
 
-const chispaTip = (title: string, body: string) => `
+export const garguiTip = (title: string, body: string) => `
   <div class="my-5 p-4 bg-amber-50 border-2 border-amber-300 rounded-2xl not-prose">
-    <p class="font-extrabold text-amber-700 mb-1">🐲 Astuce de Chispa — ${title}</p>
+    <p class="font-extrabold text-amber-700 mb-1">🏰 Astuce de Gargui — ${title}</p>
     <div class="text-sm text-amber-900 leading-relaxed">${body}</div>
   </div>
 `;
@@ -49,7 +49,7 @@ export const ORTHOGRAPHE_THEORY = `
     </div>
   </div>
 
-  ${chispaTip('casser une diphtongue', `
+  ${garguiTip('casser une diphtongue', `
     La question magique : <strong>« Où tombe l'accent tonique ? »</strong> Si la prononciation exige
     d'accentuer la voyelle <strong>faible</strong> (i, u) à côté d'une forte, on « casse » la diphtongue :
     c'est un hiatus, et on <strong>doit toujours écrire l'accent</strong>, même si les règles générales disent le contraire. Règle prioritaire !<br><br>
@@ -82,7 +82,7 @@ export const ORTHOGRAPHE_THEORY = `
     </div>
   </div>
 
-  ${chispaTip('le réflexe en 3 questions', `
+  ${garguiTip('le réflexe en 3 questions', `
     1️⃣ Je prononce le mot : où est la syllabe forte ?<br>
     2️⃣ Aguda, llana ou esdrújula ?<br>
     3️⃣ J'applique la règle : <strong>esdrújula → toujours</strong> ; <strong>aguda → accent si -n/-s/voyelle</strong> ;
@@ -130,7 +130,7 @@ export const ORTHOGRAPHE_THEORY = `
     </tbody>
   </table>
 
-  ${chispaTip('le tréma magique ü', `
+  ${garguiTip('le tréma magique ü', `
     Dans <em>gue / gui</em>, le « u » est <strong>muet</strong> : <span class="text-green-700 font-bold">guitarra</span> se dit « gui-tarra ».
     Pour <strong>entendre</strong> le « u », on lui met deux petits points : <span class="text-rose-600 font-extrabold">gü</span> →
     <span class="text-green-700 font-bold">pingüino</span> (pin-gou-i-no), <span class="text-green-700 font-bold">vergüenza, lingüista</span>.
@@ -187,7 +187,7 @@ export const PRESENTE_THEORY = `
     </div>
   </div>
 
-  ${chispaTip('-ER et -IR sont presque jumeaux', `
+  ${garguiTip('-ER et -IR sont presque jumeaux', `
     Les terminaisons de <strong>-ER</strong> et <strong>-IR</strong> sont identiques sauf à
     <strong>nosotros</strong> (com<span class="text-blue-600 font-bold">emos</span> / viv<span class="text-blue-600 font-bold">imos</span>)
     et <strong>vosotros</strong> (com<span class="text-blue-600 font-bold">éis</span> / viv<span class="text-blue-600 font-bold">ís</span>).
@@ -257,7 +257,7 @@ export const PRESENTE_THEORY = `
     </tbody>
   </table>
 
-  ${chispaTip('ser ou estar ?', `
+  ${garguiTip('ser ou estar ?', `
     <strong>SER</strong> = ce qu'on <em>est</em> (identité, caractère, origine, profession, heure) :
     <span class="text-green-700 font-bold">Soy francés. Es simpática. Son las dos.</span><br>
     <strong>ESTAR</strong> = comment/où on <em>se trouve</em> (état passager, lieu, humeur) :
@@ -299,7 +299,7 @@ export const SUBJUNTIVO_THEORY = `
   </ol>
   <p class="mb-3 text-sm">💡 Conséquence géniale : les irrégularités du « yo » de l'indicatif se <strong>propagent à tout le subjonctif</strong> : tengo → <span class="text-violet-600 font-extrabold">tenga, tengas, tenga...</span> · conozco → <span class="text-violet-600 font-extrabold">conozca...</span> · digo → <span class="text-violet-600 font-extrabold">diga...</span></p>
 
-  ${chispaTip("le monde à l'envers 🙃", `
+  ${garguiTip("le monde à l'envers 🙃", `
     Au subjonctif, les verbes en -AR parlent comme des -ER, et les -ER/-IR parlent comme des -AR !
     <span class="text-green-700 font-bold">hablas</span> (indicatif) devient <span class="text-violet-600 font-bold">hables</span>,
     et <span class="text-green-700 font-bold">comes</span> devient <span class="text-violet-600 font-bold">comas</span>.
@@ -325,10 +325,10 @@ export const SUBJUNTIVO_THEORY = `
     </tbody>
   </table>
 
-  ${chispaTip('le truc « DISHES » 🍽️', `
+  ${garguiTip('le truc « DISHES » 🍽️', `
     Pour retenir les 6 irréguliers : <strong>D</strong>ar, <strong>I</strong>r, <strong>S</strong>er,
     <strong>H</strong>aber, <strong>E</strong>star, <strong>S</strong>aber = <strong>« DISHES »</strong>
-    (la vaisselle en anglais). Quand tu fais la vaisselle, pense à moi ! 🐲
+    (la vaisselle en anglais). Quand tu fais la vaisselle, pense à moi ! 🏰
   `)}
 
   <h3 class="text-xl font-extrabold mt-7 mb-3 text-slate-800">🚦 5. Quand l'utiliser ? Les déclencheurs</h3>
@@ -371,7 +371,7 @@ export const SUBJUNTIVO_THEORY = `
     </div>
   </div>
 
-  ${chispaTip('le résumé du dragon', `
+  ${garguiTip('le résumé de Gargui', `
     Demande-toi : <strong>« Est-ce un fait réel et affirmé ? »</strong><br>
     OUI → indicatif. &nbsp;NON (souhait, émotion, doute, jugement, futur incertain) → <strong>subjonctif</strong>.<br>
     Et repère le schéma <strong>verbe déclencheur + que + ...</strong> : c'est lui qui commande ! 🚦
